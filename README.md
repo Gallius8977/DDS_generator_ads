@@ -5,3 +5,5 @@ General fuggvenyt, mer az ad converter. Amplitudo, freqvencia es faziskesest kel
 Amplitudo= max/min rogzitese
 Frekvencia= 0 ertekkek kozotti ido
 faziskeses= 0ertekek kozotti elteres
+
+kov.
