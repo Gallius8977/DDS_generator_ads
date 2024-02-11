@@ -28,10 +28,10 @@ const float GAIN = 1.0;    // ADC gain
 void setup(void)
 {
   Wire.begin(SDA_PIN, SCL_PIN);
-  Serial.begin(115200);  // Increase baud rate for faster communication
+  Serial.begin(115200);
   SerialBT.begin("EDDY_C");
   ads.begin();
-  ads.setGain(GAIN_ONE);  // Set the gain (1x) for the ADS1115
+  ads.setGain(GAIN_ONE);
   AD.begin();
   AD.setMode(MD_AD9833::MODE_OFF);
 }
@@ -68,5 +68,5 @@ void loop(void)
   Serial.print("ADC 1 : ");
   Serial.println(millivolts_adc1);
 
-  delay(10);  // Adjust delay for the desired sample rate
+  delay(10);
 }
