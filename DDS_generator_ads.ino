@@ -28,12 +28,14 @@ const float GAIN = 1.0;    // ADC gain
 void setup(void)
 {
   Wire.begin(SDA_PIN, SCL_PIN);
-  Serial.begin(115200);  // Increase baud rate for faster communication
+  Serial.begin(115200);
   SerialBT.begin("EDDY_C");
   ads.begin();
-  ads.setGain(GAIN_ONE);  // Set the gain (1x) for the ADS1115
+  ads.setGain(GAIN_ONE);
   AD.begin();
   AD.setMode(MD_AD9833::MODE_OFF);
+  AD.setMode(MD_AD9833::MODE_SINE);
+  AD.setFrequency(MD_AD9833::CHAN_0, 9000);
 }
 
 void loop(void)
@@ -56,17 +58,23 @@ void loop(void)
     AD.setMode(MD_AD9833::MODE_SINE);
     AD.setFrequency(MD_AD9833::CHAN_0, v);
   }
-
+float A=0;
+float B=0;
+for(int i=0;i<150;i++){
   adc0 = ads.readADC_SingleEnded(0);
   adc1 = ads.readADC_SingleEnded(1);
 
   float millivolts_adc0 = adc0 * (VREF / 32767) * GAIN * 1000;
   float millivolts_adc1 = adc1 * (VREF / 32767) * GAIN *1000;
-
+A=A+millivolts_adc0;
+B=B+millivolts_adc1;
+}
+A=A/150;
+B=B/150;
   Serial.print("ADC 0 : ");
-  Serial.println(millivolts_adc0);
+  Serial.println(A);
   Serial.print("ADC 1 : ");
-  Serial.println(millivolts_adc1);
+  Serial.println(B);
 
-  delay(10);  // Adjust delay for the desired sample rate
+  delay(10);
 }
