@@ -8,10 +8,10 @@
 #include <MD_AD9833.h>
 #include <SPI.h>
 
-/*#include "BluetoothSerial.h"
+#include "BluetoothSerial.h"
 #if !defined(CONFIG_BT_ENABLED) || !defined(CONFIG_BLUEDROID_ENABLED)
 #error Bluetooth is not enabled! Please run `make menuconfig` to and enable it
-#endif*/
+#endif
 
 BluetoothSerial SerialBT;
 int PIN_DATA = 18;  ///< SPI Data pin number
@@ -73,13 +73,9 @@ B=B+millivolts_adc1;
 }
 A=A/150;
 B=B/150;
-  Serial.print("ADC 0 : ");
   Serial.println(A);
-  Serial.print("ADC 1 : ");
   Serial.println(B);
-  SerialBT.print("ADC 0 : ");
   SerialBT.println(A);
-  SerialBT.print("ADC 1 : ");
   SerialBT.println(B);
   delay(10);
 }
