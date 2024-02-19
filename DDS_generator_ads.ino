@@ -1,3 +1,4 @@
+#include <BluetoothSerial.h>
 #include <Adafruit_ADS1X15.h>
 #include <Wire.h>
 
@@ -7,10 +8,10 @@
 #include <MD_AD9833.h>
 #include <SPI.h>
 
-#include "BluetoothSerial.h"
+/*#include "BluetoothSerial.h"
 #if !defined(CONFIG_BT_ENABLED) || !defined(CONFIG_BLUEDROID_ENABLED)
 #error Bluetooth is not enabled! Please run `make menuconfig` to and enable it
-#endif
+#endif*/
 
 BluetoothSerial SerialBT;
 int PIN_DATA = 18;  ///< SPI Data pin number
@@ -66,6 +67,7 @@ for(int i=0;i<150;i++){
 
   float millivolts_adc0 = adc0 * (VREF / 32767) * GAIN * 1000;
   float millivolts_adc1 = adc1 * (VREF / 32767) * GAIN *1000;
+
 A=A+millivolts_adc0;
 B=B+millivolts_adc1;
 }
@@ -75,6 +77,9 @@ B=B/150;
   Serial.println(A);
   Serial.print("ADC 1 : ");
   Serial.println(B);
-
+  SerialBT.print("ADC 0 : ");
+  SerialBT.println(A);
+  SerialBT.print("ADC 1 : ");
+  SerialBT.println(B);
   delay(10);
 }
