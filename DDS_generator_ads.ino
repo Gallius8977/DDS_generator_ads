@@ -73,9 +73,10 @@ B=B+millivolts_adc1;
 }
 A=A/150;
 B=B/150;
+float diff = B-A;
   Serial.println(A);
+  
   Serial.println(B);
-  SerialBT.println(A);
-  SerialBT.println(B);
+  SerialBT.println(diff);
   delay(10);
 }
