@@ -73,7 +73,7 @@ B=B+millivolts_adc1;
 }
 A=A/150;
 B=B/150;
-float diff = B-A;
+int diff = (B-A)*100;
   Serial.println(A);
   
   Serial.println(B);
