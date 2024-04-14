@@ -2,8 +2,8 @@
 #include <Adafruit_ADS1X15.h>
 #include <Wire.h>
 
-#define SDA_PIN 25
-#define SCL_PIN 26
+#define SDA_PIN 23
+#define SCL_PIN 19
 
 #include <MD_AD9833.h>
 #include <SPI.h>
@@ -30,7 +30,7 @@ void setup(void)
 {
   Wire.begin(SDA_PIN, SCL_PIN);
   Serial.begin(115200);
-  SerialBT.begin("EDDY_C");
+  SerialBT.begin("NoConn");
   ads.begin();
   ads.setGain(GAIN_ONE);
   AD.begin();
@@ -41,6 +41,7 @@ void setup(void)
 
 void loop(void)
 {
+  SerialBT.print("void_begin");
   if (Serial.available() > 0) {
     S = Serial.readString();
     S.trim();
@@ -73,9 +74,9 @@ B=B+millivolts_adc1;
 }
 A=A/150;
 B=B/150;
-int diff = (B-A)*100;
+float diff = B-A;
   Serial.println(A);
-  
+  SerialBT.print("void_end");
   Serial.println(B);
   SerialBT.println(diff);
   delay(10);
