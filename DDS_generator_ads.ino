@@ -41,7 +41,6 @@ void setup(void)
 
 void loop(void)
 {
-  SerialBT.print("void_begin");
   if (Serial.available() > 0) {
     S = Serial.readString();
     S.trim();
@@ -62,7 +61,7 @@ void loop(void)
   }
 float A=0;
 float B=0;
-for(int i=0;i<150;i++){
+for(int i=0;i<500;i++){
   adc0 = ads.readADC_SingleEnded(0);
   adc1 = ads.readADC_SingleEnded(1);
 
@@ -72,12 +71,10 @@ for(int i=0;i<150;i++){
 A=A+millivolts_adc0;
 B=B+millivolts_adc1;
 }
-A=A/150;
-B=B/150;
-float diff = B-A;
-  Serial.println(A);
-  SerialBT.print("void_end");
-  Serial.println(B);
-  SerialBT.println(diff);
+A=A/500;
+B=B/500;
+float difference = A-B;
+int diff = difference*100;
+SerialBT.println(diff);
   delay(10);
 }
