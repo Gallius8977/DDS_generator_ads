@@ -14,8 +14,8 @@
 #endif
 
 BluetoothSerial SerialBT;
-int PIN_DATA = 18;  ///< SPI Data pin number
-int PIN_CLK = 17;   ///< SPI Clock pin number
+int PIN_DATA = 17;  ///< SPI Data pin number
+int PIN_CLK = 18;   ///< SPI Clock pin number
 int PIN_FSYNC = 5;  ///< SPI Load pin number
 String S = "";
 int16_t adc0, adc1;
@@ -28,6 +28,8 @@ const float GAIN = 1.0;    // ADC gain
 
 void setup(void)
 {
+  pinMode(22, OUTPUT);
+  digitalWrite(22, LOW);
   Wire.begin(SDA_PIN, SCL_PIN);
   Serial.begin(115200);
   SerialBT.begin("NoConn");
@@ -36,7 +38,7 @@ void setup(void)
   AD.begin();
   AD.setMode(MD_AD9833::MODE_OFF);
   AD.setMode(MD_AD9833::MODE_SINE);
-  AD.setFrequency(MD_AD9833::CHAN_0, 9000);
+  AD.setFrequency(MD_AD9833::CHAN_0, 15000);
 }
 
 void loop(void)
@@ -59,22 +61,27 @@ void loop(void)
     AD.setMode(MD_AD9833::MODE_SINE);
     AD.setFrequency(MD_AD9833::CHAN_0, v);
   }
-float A=0;
-float B=0;
-for(int i=0;i<500;i++){
-  adc0 = ads.readADC_SingleEnded(0);
-  adc1 = ads.readADC_SingleEnded(1);
-
-  float millivolts_adc0 = adc0 * (VREF / 32767) * GAIN * 1000;
-  float millivolts_adc1 = adc1 * (VREF / 32767) * GAIN *1000;
-
-A=A+millivolts_adc0;
-B=B+millivolts_adc1;
-}
-A=A/500;
-B=B/500;
-float difference = A-B;
-int diff = difference*100;
-SerialBT.println(diff);
+  AD.setMode(MD_AD9833::MODE_SINE);
+  AD.setFrequency(MD_AD9833::CHAN_0, 15000);
+  float A=0;
+  float B=0;
+  for(int i=0;i<200;i++){
+    adc0 = ads.readADC_SingleEnded(0);
+    adc1 = ads.readADC_SingleEnded(1);
+  
+    float millivolts_adc0 = adc0 * (VREF / 32767) * GAIN * 1000;
+    float millivolts_adc1 = adc1 * (VREF / 32767) * GAIN *1000;
+  
+  A=A+millivolts_adc0;
+  B=B+millivolts_adc1;
+  }
+  A=A/200;
+  B=B/200;
+  Serial.println(A);
+  Serial.println(B);
+  float difference = B/A;
+  int diff = difference*10000;
+  SerialBT.println(diff);
+  Serial.println(diff);
   delay(10);
 }
