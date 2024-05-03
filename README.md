@@ -1,4 +1,8 @@
-# DDS_generator_ads
+#Device
 Metal measuring device.
 
-Needs rework.
+Initialization receive
+AC-Sine measurment instead of DC converter
+Triple sensor
+  Hardware
+  Handling
