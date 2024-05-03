@@ -1,4 +1,4 @@
 # DDS_generator_ads
- EddyMuszer
+Metal measuring device.
 
-Méréssel még probléma van; funkcionalitását tenkintve jól küldi az értéket.
+Needs rework.
